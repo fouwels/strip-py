@@ -1,3 +1,5 @@
+import StringIO
+
 from flask import Flask, request, make_response, send_file
 from PIL import Image #not actually Pil, pillow
 
@@ -10,7 +12,14 @@ def img():
 	else:
 		img = Image.open(request.files['image'])
 		
-		responseData = str(img.size);
+		
+		
+		output = StringIO.StringIO()
+		img.save(output, format="PNG")
+		contents = output.getvalue()
+		output.close()
+		
+		responseData = contents
 		
 		resp = make_response(responseData)
 		resp.statusCode = 200
