@@ -12,6 +12,11 @@ def img():
 	else:
 		img = Image.open(request.files['image'])
 		
+		pixels = img.load()
+		for y in xrange(img.size[1]):
+		    for x in xrange(img.size[0]):
+		        if pixels[x, y] == (255, 255, 255, 255):
+		            pixels[x, y] = (255, 255, 255, 0)
 		
 		
 		output = StringIO.StringIO()
