@@ -1,4 +1,5 @@
 from flask import Flask, request, make_response, send_file
+from PIL import Image #not actually Pil, pillow
 
 app = Flask(__name__)
 
@@ -7,9 +8,13 @@ def img():
 	if request.method == 'GET':
 		return "yo, you forgot to post"
 	else:
-		img = request.files['image'].read()
+		img = Image.open(request.files['image'])
 		
-		return img;
+		responseData = str(img.size);
+		
+		resp = make_response(responseData)
+		resp.statusCode = 200
+		return resp
 	
 	
 if __name__ == "__main__":
