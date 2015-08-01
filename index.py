@@ -1,5 +1,6 @@
 import StringIO
-
+import tempfile
+import base64
 from flask import Flask, request, make_response, send_file
 from PIL import Image #not actually Pil, pillow
 
@@ -10,7 +11,8 @@ def img():
 	if request.method == 'GET':
 		return "yo, you forgot to post"
 	else:
-		img = Image.open(request.files['image'])
+		vimg = request.files["image"]
+		img = Image.open(vimg)
 		
 		pixels = img.load()
 		for y in xrange(img.size[1]):
@@ -19,12 +21,13 @@ def img():
 		            pixels[x, y] = (255, 255, 255, 0)
 		
 		
-		output = StringIO.StringIO()
-		img.save(output, format="PNG")
-		contents = output.getvalue()
-		output.close()
+		vfile = tempfile.SpooledTemporaryFile()
+		img.save(vfile, format="PNG")
+		vfile.seek(0)
+		contents = vfile.read()
+		vfile.close()
 		
-		responseData = contents
+		responseData = base64.b64encode(contents)
 		
 		resp = make_response(responseData)
 		resp.statusCode = 200
