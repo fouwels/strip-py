@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, make_response, send_file
 
 app = Flask(__name__)
 
@@ -6,10 +6,10 @@ app = Flask(__name__)
 def img():
 	if request.method == 'GET':
 		return "yo, you forgot to post"
-	
-	img = request.form['image']
-	return img
-
+	else:
+		img = request.files['image'].read()
+		
+		return img;
 	
 	
 if __name__ == "__main__":
