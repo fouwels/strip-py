@@ -1,5 +1,6 @@
+Accepts a POST to '/' with image = image file.
 
-Returns calculated file base64 encoded
+Decodes and converts to RGBA, then returns base64 encoded as a png.
 
 ##testing
 

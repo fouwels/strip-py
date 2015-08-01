@@ -12,14 +12,17 @@ def img():
 		return "yo, you forgot to post"
 	else:
 		vimg = request.files["image"]
-		img = Image.open(vimg)
+		img = Image.open(vimg).convert('RGBA')
 		
 		pixels = img.load()
 		for y in xrange(img.size[1]):
 		    for x in xrange(img.size[0]):
-		        if pixels[x, y] == (255, 255, 255, 255):
-		            pixels[x, y] = (255, 255, 255, 0)
-		
+				#print ("checking[x:y] " + str(y) + ":" + str(x) + str(pixels[x,y]))
+				if pixels[x, y] == (255, 255, 255, 255):
+					pixels[x, y] = (255, 255, 255, 0)
+					#print "edited[x/y]: " + str(y) + ":" + str(x)
+
+					
 		
 		vfile = tempfile.SpooledTemporaryFile()
 		img.save(vfile, format="PNG")
