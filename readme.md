@@ -1,16 +1,14 @@
-Accepts a POST to '/' with a binary image file key'd as 'image'. Should work with any common format.
+Takes a POST to '/' with the file key'd as 'image'. Accepts most formats.
 
 Decodes and converts to RGBA, then returns base64 encoded as a png.
 
-##Testing
+##Running
 
 ~~Read the .ps1 in /test/, or dot source it and pipe to-~~
 
-Execute the .ps1 and check out.png .
+Execute the .ps1 and check out.png.
 
-If you have a way of writing __bytes__ natively in powershell please let me know, currently sources [io.file] to do it properly.
-
-
+If you have a way of writing __bytes__ natively in powershell let me know, but currently sources [io.file] to do it properly.
 
 Base64 decode in powershell
 ````
@@ -21,4 +19,4 @@ $decoded = [System.Convert]::FromBase64CharArray($e, 0, $e.Length)
 Get-Content('out.png') | Format-Hex
 ````
 
-(Required the PSCH powershell community extensions)
+(Requires the PSCH powershell community extensions)
