@@ -2,7 +2,7 @@ Takes a POST to '/' with the file key'd as 'image'. Accepts most formats.
 
 Decodes and converts to RGBA, then returns base64 encoded as a png.
 
-##Running
+##Example
 
 ~~Read the .ps1 in /test/, or dot source it and pipe to-~~
 
